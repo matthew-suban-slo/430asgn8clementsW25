@@ -16,6 +16,19 @@
 (fn CloV [params body env] {:type "CloV" :params params :body body :env env})
 (fn BooleanV [bool] {:type "BooleanV" :bool :bool})
 
+;; Implement primop-add
+(fn primop-add [vals]
+  (var sum 0)
+  (each [_ v (ipairs vals)]
+    (if (= v.type "NumV")
+        (set sum (+ sum v.n))
+        (error "QWJZ args not NumV")))
+  (NumV sum))
+
+;; Simple test to ensure it runs
+(local result (primop-add [(NumV 1) (NumV 2) (NumV 3)]))
+(print result.n)  ; Outputs: 6
+
 (fn interp [expr]
   (match expr
     {:type "NumC" :n n} n
