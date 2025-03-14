@@ -1,4 +1,5 @@
 ;; ExprC
+; omg
 (fn NumC [n] {:type "NumC" :n n})
 (fn IdC [s] {:type "IdC" :s s})
 (fn IfC [test then else] {:type "IfC" :test test :then then :else else})
@@ -22,13 +23,14 @@
   (each [_ v (ipairs vals)]
     (if (= v.type "NumV")
         (set sum (+ sum v.n))
-        (error "fnennelajza args not NumV")))
+        (error "FENL5 args not NumV")))
   (NumV sum))
 
-;; Simple test to ensure it runs
+;; Simple test to ensure it runs, if print 6 then pass, big W
 (local result (primop-add [(NumV 1) (NumV 2) (NumV 3)]))
 (print result.n)
 
+; interp function
 (fn interp [expr]
   (match expr
     {:type "NumC" :n n} n
@@ -39,9 +41,10 @@
     {:type "PrintC" :expr print-expr} (print (interp print-expr))
     other (error "Unsupported expression type")))
 
+; testing printing
+(print (interp (PrintC (StringC "StringC test passed!"))))
 
-(print (interp (PrintC (StringC "hello"))))
-
+; yeah
 (fn test-cases []  
   (assert (= (interp {:type "NumC" :n 100}) 100) "Test NumC failed")
   (assert (= (interp {:type "IdC" :s "a"}) "a") "Test IdC failed")
@@ -55,7 +58,7 @@
                       :test {:type "BooleanV" :bool false}
                       :then {:type "IdC" :s "t"}
                       :else {:type "IdC" :s "f"}}) "f") "Test IfC failed")
-  
-  (print "All tests passed!"))
+  ; YAY
+  (print "All typing tests passed!"))
 
 (test-cases)
